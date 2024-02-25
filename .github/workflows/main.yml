@@ -21,4 +21,3 @@ jobs:
         with:
           nodetail: true
           title: "Fly Deploy"
-          color: 0xff91a4
