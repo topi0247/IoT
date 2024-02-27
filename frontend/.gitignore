@@ -39,3 +39,8 @@ next-env.d.ts
 .sentryclirc
 .pnp.*
 .yarn
+# Sentry Config File
+.sentryclirc
+
+# Sentry Config File
+.sentryclirc
