@@ -14,6 +14,7 @@ jobs:
         working-directory: ./backend
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          USERNAME: ${{ secrets.USERNAME }}
       - uses: sarisia/actions-status-discord@v1
         if: always()
         env:
