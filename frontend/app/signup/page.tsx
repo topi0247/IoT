@@ -1,7 +1,37 @@
+"use client";
+
 import Link from "next/link";
-import { RoutePath } from "../path/path";
+import { RoutePath } from "@/app/path/path";
+import { useState } from "react";
+import { getSignUpParams } from "@/app/types/authTypes";
+import { sighUp } from "@/app/api/auth/auth";
+import Cookies from "js-cookie";
 
 const SignUp = () => {
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+
+  const handleSignUpSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const signUpParams = getSignUpParams({
+      name: userName,
+      email,
+      password,
+      passwordConfirmation,
+    });
+
+    try {
+      const response = await sighUp(signUpParams);
+      if (response.status === 200) {
+        Cookies.set("_access_token", response.headers["access-token"]);
+        Cookies.set("_Client", response.headers["Client"]);
+        Cookies.set("_uid", response.headers["uid"]);
+      }
+    } catch (error) {}
+  };
+
   return (
     <article className="m-auto w-screen h-screen bg-slate-800 flex justify-center items-center">
       <section className="m-auto bg-slate-50 p-12 w-[400px] rounded">
@@ -11,7 +41,10 @@ const SignUp = () => {
           </span>
         </h2>
         <div className="mt-10">
-          <form className="flex flex-col gap-3">
+          <form
+            className="flex flex-col gap-3"
+            onSubmit={(e) => handleSignUpSubmit(e)}
+          >
             <dl className="m-auto w-full flex flex-wrap box-border">
               <dt className="w-5/12 mb-2">
                 <label htmlFor="name" className="w-full">
@@ -23,6 +56,7 @@ const SignUp = () => {
                   type="text"
                   id="name"
                   className="w-full bg-slate-300 border border-opacity-0 focus:outline-none hover:border-slate-800 hover:border transition-all rounded px-2"
+                  onChange={(e) => setUserName(e.target.value)}
                 />
               </dd>
               <dt className="w-5/12 mb-2">
@@ -33,6 +67,7 @@ const SignUp = () => {
                   type="email"
                   id="email"
                   className="w-full bg-slate-300 border border-opacity-0 focus:outline-none hover:border-slate-800 hover:border transition-all rounded px-2"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </dd>
               <dt className="w-5/12 mb-2">
@@ -45,6 +80,7 @@ const SignUp = () => {
                   type="password"
                   id="password"
                   className="w-full bg-slate-300 border border-opacity-0 focus:outline-none hover:border-slate-800 hover:border transition-all rounded px-2"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </dd>
               <dt className="w-5/12">
@@ -57,6 +93,7 @@ const SignUp = () => {
                   type="password"
                   id="password"
                   className="w-full bg-slate-300 border border-opacity-0 focus:outline-none hover:border-slate-800 hover:border transition-all rounded px-2"
+                  onChange={(e) => setPasswordConfirmation(e.target.value)}
                 />
               </dd>
             </dl>

@@ -1,21 +1,10 @@
+import { LoginParams, SignUpParams } from "@/app/types/authTypes";
 import { Client } from "./client";
 import Cookies from "js-cookie";
-
-type SignUpParams = {
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirmation: string;
-};
 
 // ユーザー登録
 export const sighUp = (params: SignUpParams) => {
   return Client.post("/auth", params);
-};
-
-type LoginParams = {
-  email: string;
-  password: string;
 };
 
 // ログイン
