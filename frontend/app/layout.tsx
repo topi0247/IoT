@@ -48,7 +48,7 @@ export default function RootLayout({
             </nav>
           </div>
         </header>
-        <main className="flex-1 w-4/5 m-auto my-8 bg-slate-200 rounded-xl p-7 py-10">
+        <main className="flex-1 w-4/5 max-w-[1200px]  my-8  rounded-xl p-7 py-10 container m-auto">
           {children}
         </main>
         <footer className="text-center my-3 text-white">

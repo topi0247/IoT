@@ -36,8 +36,8 @@ const SignUp = () => {
   };
 
   return (
-    <article className="m-auto w-screen h-screen bg-slate-800 flex justify-center items-center">
-      <section className="m-auto bg-slate-50 p-12 w-[400px] rounded">
+    <article className="m-auto">
+      <section className="m-auto bg-slate-50 p-12 w-[400px] rounded-2xl">
         <h2 className="text-center text-2xl">
           <span className="px-5 pb-2 border-b-2 border-slate-800">
             新規登録
