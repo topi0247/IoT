@@ -29,7 +29,10 @@ const SignUp = () => {
         Cookies.set("_Client", response.headers["Client"]);
         Cookies.set("_uid", response.headers["uid"]);
       }
-    } catch (error) {}
+    } catch (error) {
+      // TODO : バックのバリデーションに引っかかったときの対処
+      console.error(error);
+    }
   };
 
   return (
@@ -55,6 +58,7 @@ const SignUp = () => {
                 <input
                   type="text"
                   id="name"
+                  name="registration[name]"
                   className="w-full bg-slate-300 border border-opacity-0 focus:outline-none hover:border-slate-800 hover:border transition-all rounded px-2"
                   onChange={(e) => setUserName(e.target.value)}
                 />
@@ -66,6 +70,7 @@ const SignUp = () => {
                 <input
                   type="email"
                   id="email"
+                  name="registration[email]"
                   className="w-full bg-slate-300 border border-opacity-0 focus:outline-none hover:border-slate-800 hover:border transition-all rounded px-2"
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -79,19 +84,21 @@ const SignUp = () => {
                 <input
                   type="password"
                   id="password"
+                  name="registration[password]"
                   className="w-full bg-slate-300 border border-opacity-0 focus:outline-none hover:border-slate-800 hover:border transition-all rounded px-2"
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </dd>
               <dt className="w-5/12">
-                <label htmlFor="password" className="w-full">
+                <label htmlFor="passwordConformation" className="w-full">
                   パスワード確認
                 </label>
               </dt>
               <dd className="w-7/12">
                 <input
                   type="password"
-                  id="password"
+                  id="passwordConformation"
+                  name="registration[passwordConformation]"
                   className="w-full bg-slate-300 border border-opacity-0 focus:outline-none hover:border-slate-800 hover:border transition-all rounded px-2"
                   onChange={(e) => setPasswordConfirmation(e.target.value)}
                 />

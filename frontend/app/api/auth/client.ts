@@ -7,7 +7,7 @@ const options = {
 
 export const Client = applyCaseMiddleware(
   axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_KEY,
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
   }),
   options
 );
