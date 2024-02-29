@@ -6,8 +6,10 @@ import { useState } from "react";
 import { getSignUpParams } from "@/app/types/authTypes";
 import { sighUp } from "@/app/api/auth/auth";
 import Cookies from "js-cookie";
+import { useAuthUser } from "@/app/context/authUser";
 
 const SignUp = () => {
+  const setUser = useAuthUser();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
