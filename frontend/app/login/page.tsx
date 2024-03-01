@@ -3,11 +3,15 @@
 import Link from "next/link";
 import { RoutePath } from "@/src/utils/path/path";
 import { useState } from "react";
-import { getLoginParams } from "@/src/utils/types/authTypes";
 import { login } from "@/src/api/auth/auth";
 import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/src/redux/hooks/hooks";
+import { UserData } from "@/src/utils/types/userTypes";
+import { setLoginUser } from "@/src/redux/hooks/auth/user";
+import { getLoginParams } from "@/src/utils/types/authTypes";
 
 function Login() {
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -19,7 +23,14 @@ function Login() {
       const response = await login(loginParams);
 
       if (response.status === 200) {
-        router.push(RoutePath.Novels("1"));
+        const responseData = response.data.data;
+        const userData = {
+          id: responseData.id,
+          name: responseData.name,
+          uuid: responseData.uuid,
+        } as UserData;
+        dispatch(setLoginUser(userData));
+        router.push(RoutePath.Novels);
       }
     } catch (error) {
       console.error(error);
