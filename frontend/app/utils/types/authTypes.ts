@@ -19,3 +19,11 @@ export type LoginParams = {
   email: string;
   password: string;
 };
+
+export const getLoginParams = (params: LoginParams): LoginParams => {
+  const { email, password } = params;
+  return {
+    email,
+    password,
+  };
+};

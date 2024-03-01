@@ -1,11 +1,11 @@
 "use client";
 
 import { ReactNode, createContext, useContext } from "react";
-import { UserContextType, UserData } from "@/app/types/userTypes";
+import { UserContextType, UserData } from "@/app/utils/types/userTypes";
 
 const UserContext = createContext<UserContextType>({
-  user: { name: "", id: 0, uid: "" },
-  setUser: () => {},
+  user: {} as UserData,
+  setUser: (params) => {},
 });
 const UseProvider = UserContext.Provider;
 

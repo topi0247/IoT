@@ -5,15 +5,14 @@ import { RoutePath } from "@/app/utils/path/path";
 import { useState } from "react";
 import { getSignUpParams } from "@/app/utils/types/authTypes";
 import { sighUp } from "@/app/api/auth/auth";
-import Cookies from "js-cookie";
-import { useAuthUser } from "@/app/context/authUser";
+import { useRouter } from "next/navigation";
 
 const SignUp = () => {
-  const setUser = useAuthUser();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const router = useRouter();
 
   const handleSignUpSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,14 +25,17 @@ const SignUp = () => {
 
     try {
       const response = await sighUp(signUpParams);
+
       if (response.status === 200) {
-        Cookies.set("_access_token", response.headers["access-token"]);
-        Cookies.set("_Client", response.headers["Client"]);
-        Cookies.set("_uid", response.headers["uid"]);
+        router.push(RoutePath.Novels("1"));
       }
     } catch (error) {
       // TODO : バックのバリデーションに引っかかったときの対処
       console.error(error);
+      /*
+        ユーザー認証に失敗したときのエラーメッセージ
+        {"success":false,"errors":["ログイン用の認証情報が正しくありません。再度お試しください。"]}
+      */
     }
   };
 
@@ -60,7 +62,6 @@ const SignUp = () => {
                 <input
                   type="text"
                   id="name"
-                  name="registration[name]"
                   className="w-full bg-slate-300 border border-opacity-0 focus:outline-none hover:border-slate-800 hover:border transition-all rounded px-2"
                   onChange={(e) => setUserName(e.target.value)}
                 />
@@ -72,7 +73,6 @@ const SignUp = () => {
                 <input
                   type="email"
                   id="email"
-                  name="registration[email]"
                   className="w-full bg-slate-300 border border-opacity-0 focus:outline-none hover:border-slate-800 hover:border transition-all rounded px-2"
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -86,7 +86,6 @@ const SignUp = () => {
                 <input
                   type="password"
                   id="password"
-                  name="registration[password]"
                   className="w-full bg-slate-300 border border-opacity-0 focus:outline-none hover:border-slate-800 hover:border transition-all rounded px-2"
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -100,7 +99,6 @@ const SignUp = () => {
                 <input
                   type="password"
                   id="passwordConformation"
-                  name="registration[passwordConformation]"
                   className="w-full bg-slate-300 border border-opacity-0 focus:outline-none hover:border-slate-800 hover:border transition-all rounded px-2"
                   onChange={(e) => setPasswordConfirmation(e.target.value)}
                 />

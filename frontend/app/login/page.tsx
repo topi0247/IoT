@@ -3,13 +3,27 @@
 import Link from "next/link";
 import { RoutePath } from "@/app/utils/path/path";
 import { useState } from "react";
+import { getLoginParams } from "@/app/utils/types/authTypes";
+import { login } from "@/app/api/auth/auth";
+import { useRouter } from "next/navigation";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
-  const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const loginParams = getLoginParams({ email, password });
+    try {
+      const response = await login(loginParams);
+
+      if (response.status === 200) {
+        router.push(RoutePath.Novels("1"));
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -30,7 +44,6 @@ function Login() {
                 <input
                   type="email"
                   id="email"
-                  name="registration[email]"
                   className="w-full bg-slate-300 border border-opacity-0 focus:outline-none hover:border-slate-800 hover:border transition-all rounded px-2"
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -44,7 +57,6 @@ function Login() {
                 <input
                   type="password"
                   id="password"
-                  name="registration[password]"
                   className="w-full bg-slate-300 border border-opacity-0 focus:outline-none hover:border-slate-800 hover:border transition-all rounded px-2"
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -55,10 +67,10 @@ function Login() {
                 type="submit"
                 className="bg-slate-500 text-white p-2 px-4 rounded hover:bg-slate-300 transition-all tracking-widest"
               >
-                新規登録
+                ログイン
               </button>
               <div className="text-sm">
-                ログインは
+                新規登録
                 <Link
                   href={RoutePath.Home}
                   className="text-orange-600 border-b border-orange-600 hover:text-opacity-50 transition-all"
