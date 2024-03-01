@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { RoutePath } from "@/app/path/path";
+import { RoutePath } from "@/app/utils/path/path";
 import { useState } from "react";
-import { getSignUpParams } from "@/app/types/authTypes";
+import { getSignUpParams } from "@/app/utils/types/authTypes";
 import { sighUp } from "@/app/api/auth/auth";
 import Cookies from "js-cookie";
 import { useAuthUser } from "@/app/context/authUser";

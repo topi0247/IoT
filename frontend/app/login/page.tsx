@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { RoutePath } from "@/app/path/path";
+import { RoutePath } from "@/app/utils/path/path";
 import { useState } from "react";
 
 function Login() {
