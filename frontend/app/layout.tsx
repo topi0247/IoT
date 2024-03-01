@@ -1,13 +1,13 @@
 "use client";
 
-import { metadata } from "./utils/metadata";
+import { metadata } from "@/src/utils/metadata";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-import { RoutePath } from "./utils/path/path";
-import { AuthUserProvider } from "./context/authUser";
+import { RoutePath } from "@/src/utils/path/path";
+import { AuthUserProvider } from "@/src/context/authUser";
 import { useState } from "react";
-import { UserData } from "./utils/types/userTypes";
+import { UserData } from "@/src/utils/types/userTypes";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +26,9 @@ export default function RootLayout({
         <AuthUserProvider value={{ user, setUser }}>
           <header className="px-4 py-4 bg-white drop-shadow-md">
             <div className="flex justify-between items-center container m-auto">
-              <h1 className="text-2xl tracking-wider">IoT</h1>
+              <h1 className="text-2xl tracking-wider">
+                <Link href={RoutePath.Home}>IoT</Link>
+              </h1>
               <nav>
                 <ul className="grid items-center grid-cols-4 text-center">
                   <li className="border-r border-slate-300">

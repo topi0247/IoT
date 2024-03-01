@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { RoutePath } from "@/app/utils/path/path";
+import { RoutePath } from "@/src/utils/path/path";
 import { useState } from "react";
-import { getLoginParams } from "@/app/utils/types/authTypes";
-import { login } from "@/app/api/auth/auth";
+import { getLoginParams } from "@/src/utils/types/authTypes";
+import { login } from "@/src/api/auth/auth";
 import { useRouter } from "next/navigation";
 
 function Login() {

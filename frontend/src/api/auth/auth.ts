@@ -1,4 +1,4 @@
-import { LoginParams, SignUpParams } from "@/app/utils/types/authTypes";
+import { LoginParams, SignUpParams } from "@/src/utils/types/authTypes";
 import { Client } from "./client";
 import Cookies from "js-cookie";
 

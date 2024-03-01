@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { RoutePath } from "@/app/utils/path/path";
+import { RoutePath } from "@/src/utils/path/path";
 import { useState } from "react";
-import { getSignUpParams } from "@/app/utils/types/authTypes";
-import { sighUp } from "@/app/api/auth/auth";
+import { getSignUpParams } from "@/src/utils/types/authTypes";
+import { sighUp } from "@/src/api/auth/auth";
 import { useRouter } from "next/navigation";
 
 const SignUp = () => {
