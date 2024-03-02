@@ -30,6 +30,10 @@ function Login() {
           uuid: responseData.uuid,
         } as UserData;
         dispatch(setLoginUser(userData));
+        const responseHeaders = response.headers;
+        document.cookie = `access-token=${responseHeaders["access-token"]}`;
+        document.cookie = `client=${responseHeaders["client"]}`;
+        document.cookie = `uid=${responseHeaders["uid"]}`;
         router.push(RoutePath.Novels);
       }
     } catch (error) {

@@ -1,0 +1,5 @@
+ja:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: '入力内容に誤りがあります。'

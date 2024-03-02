@@ -6,7 +6,7 @@ import React from "react";
 
 export const Header = () => {
   const state = useAppSelector((state: RootState) => state);
-  let user = state.user;
+  let user = state?.user;
 
   return (
     <header className="px-4 py-4 bg-white shadow shadow-white">

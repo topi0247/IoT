@@ -6,8 +6,12 @@ import { useState } from "react";
 import { getSignUpParams } from "@/src/utils/types/authTypes";
 import { sighUp } from "@/src/api/auth/auth";
 import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/src/redux/hooks/hooks";
+import { UserData } from "@/src/utils/types/userTypes";
+import { setLoginUser } from "@/src/redux/hooks/auth/user";
 
 const SignUp = () => {
+  const dispatch = useAppDispatch();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +31,18 @@ const SignUp = () => {
       const response = await sighUp(signUpParams);
 
       if (response.status === 200) {
-        router.push(RoutePath.Novels("1"));
+        const responseData = response.data.data;
+        const userData = {
+          id: responseData.id,
+          name: responseData.name,
+          uuid: responseData.uuid,
+        } as UserData;
+        dispatch(setLoginUser(userData));
+        const responseHeaders = response.headers;
+        document.cookie = `access-token=${responseHeaders["access-token"]}`;
+        document.cookie = `client=${responseHeaders["client"]}`;
+        document.cookie = `uid=${responseHeaders["uid"]}`;
+        router.push(RoutePath.Novels);
       }
     } catch (error) {
       // TODO : バックのバリデーションに引っかかったときの対処

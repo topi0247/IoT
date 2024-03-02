@@ -1,5 +1,5 @@
 FROM ruby:3.2.2
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs postgresql-client
 
 WORKDIR /app
 
@@ -22,7 +22,7 @@ ENV USERNAME ${USERNAME}
 
 # 環境変数を使用
 RUN if [ "$USERNAME" != "root" ]; then useradd $USERNAME --create-home --shell /bin/bash; fi && \
-  chown -R $USERNAME:$USERNAME db log storage tmp
+  chown -R $USERNAME:$USERNAME db log storage tmp /usr/local/bundle/cache/
 USER $USERNAME
 
 EXPOSE 3002
