@@ -5,16 +5,7 @@ import { getNovels } from "@/src/api/novels/fetchData";
 import { NovelData, NovelsData } from "@/src/utils/types/novelTypes";
 import { NoveListItem } from "./components/novelListItem";
 
-const novelsData: NovelsData = Array.from({ length: 100 }, (_, i) => ({
-  id: i + 1,
-  title: `test${i + 1}`,
-  createdAt: `2021/09/${String(i + 1).padStart(2, "0")} 10:10`,
-  updatedAt: `2021/09/${String(i + 1).padStart(2, "0")} 10:10`,
-  totalCharacters: (i + 1) * 100,
-}));
-
 const Novels = () => {
-  //const [novels, setNovels] = useState<NovelData[]>([]);
   const [novels, setNovels] = useState<NovelsData>([]);
 
   useEffect(() => {
@@ -37,9 +28,13 @@ const Novels = () => {
         リスト
       </h2>
       <section className="my-5 flex flex-col gap-2">
-        {novelsData.map((novel: NovelData) => (
-          <NoveListItem key={novel.id} novel={novel} />
-        ))}
+        {novels.length > 0 ? (
+          novels.map((novel: NovelData) => (
+            <NoveListItem key={novel.id} novel={novel} />
+          ))
+        ) : (
+          <p>ノートがありません</p>
+        )}
       </section>
     </article>
   );

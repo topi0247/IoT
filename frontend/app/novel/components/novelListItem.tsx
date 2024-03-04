@@ -5,7 +5,7 @@ import Link from "next/link";
 export const NoveListItem = ({ novel }: { novel: NovelData }) => {
   return (
     <dl className="flex items-end border-b border-slate-300 justify-between pb-2">
-      <dt className="flex w-21/5 items-center">
+      <dt className="flex w-21/5 items-center mx-4">
         <Link
           href={RoutePath.Novel(novel.id)}
           className="hover:opacity-50 transition-all"
