@@ -1,11 +1,11 @@
-class NotesController < ApplicationController
+class Api::V1::NotesController < ApplicationController
   def index
-    @notes = Note.includes(:users).find_by(user_id: current_user.id)
+    @notes = Note.includes(:user).find_by(user_id: current_user.id)
     render json: @notes, status: :ok
   end
 
   def show
-    note = Note.includes(:users).find_by(user_id: current_user.id, id: params[:id])
+    note = Note.includes(:user).find_by(user_id: current_user.id, id: params[:id])
     if note.nil?
       render json: { error: 'Note not found' }, status: :not_found
       return
