@@ -9,6 +9,8 @@ import { useAppDispatch } from "@/src/redux/hooks/hooks";
 import { UserData } from "@/src/utils/types/userTypes";
 import { setLoginUser } from "@/src/redux/hooks/auth/user";
 import { getLoginParams } from "@/src/utils/types/authTypes";
+import { setCookie } from "typescript-cookie";
+import { ACCESS_TOKEN_KEY, CLIENT_KEY, UID_KEY } from "@/src/utils/setting";
 
 function Login() {
   const dispatch = useAppDispatch();
@@ -31,9 +33,9 @@ function Login() {
         } as UserData;
         dispatch(setLoginUser(userData));
         const responseHeaders = response.headers;
-        document.cookie = `access-token=${responseHeaders["access-token"]}`;
-        document.cookie = `client=${responseHeaders["client"]}`;
-        document.cookie = `uid=${responseHeaders["uid"]}`;
+        setCookie(ACCESS_TOKEN_KEY, responseHeaders["access-token"]);
+        setCookie(CLIENT_KEY, responseHeaders["client"]);
+        setCookie(UID_KEY, responseHeaders["uid"]);
         router.push(RoutePath.Novels);
       }
     } catch (error) {

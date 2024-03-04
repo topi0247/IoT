@@ -1,5 +1,7 @@
 import { LoginParams, SignUpParams } from "@/src/utils/types/authTypes";
 import { Client } from "./client";
+import { getCookie, getCookies } from "typescript-cookie";
+import { ACCESS_TOKEN_KEY, CLIENT_KEY, UID_KEY } from "@/src/utils/setting";
 
 // ユーザー登録
 export const sighUp = (params: SignUpParams) => {
@@ -13,29 +15,29 @@ export const login = (params: LoginParams) => {
 
 // ログアウト
 export const logout = () => {
-  // return Client.delete("/auth/sign_out", {
-  //   headers: {
-  //     "access-token": Cookies.get("_access_token"),
-  //     Client: Cookies.get("_Client"),
-  //     uid: Cookies.get("_uid"),
-  //   },
-  // });
+  return Client.delete("/auth/sign_out", {
+    headers: {
+      "access-token": getCookie(ACCESS_TOKEN_KEY),
+      Client: getCookie(CLIENT_KEY),
+      uid: getCookie(UID_KEY),
+    },
+  });
 };
 
 // ログインユーザーの情報取得
 // export const currentUser = () => {
 //   if (
-//     !Cookies.get("_access_token") ||
-//     !Cookies.get("_Client") ||
-//     !Cookies.get("_uid")
+//     !getCookie(ACCESS_TOKEN_KEY) ||
+//     !getCookie(CLIENT_KEY) ||
+//     !getCookie(UID_KEY)
 //   )
 //     return;
 
 //   return Client.get("/auth/sessions", {
 //     headers: {
-//       "access-token": Cookies.get("_access_token"),
-//       Client: Cookies.get("_Client"),
-//       uid: Cookies.get("_uid"),
+//       "access-token": getCookie(ACCESS_TOKEN_KEY),
+//       Client: getCookie(CLIENT_KEY),
+//       uid: getCookie(UID_KEY),
 //     },
 //   });
 // };
