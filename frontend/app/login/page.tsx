@@ -82,12 +82,12 @@ function Login() {
             <div className="flex flex-col gap-3 justify-center items-center mt-4">
               <button
                 type="submit"
-                className="bg-slate-500 text-white p-2 px-4 rounded hover:bg-slate-300 transition-all tracking-widest"
+                className="btn bg-slate-500 text-white p-2 px-4 rounded hover:bg-slate-300 transition-all tracking-widest"
               >
                 ログイン
               </button>
               <div className="text-sm">
-                新規登録
+                新規登録は
                 <Link
                   href={RoutePath.Home}
                   className="text-orange-600 border-b border-orange-600 hover:text-opacity-50 transition-all"

@@ -2,7 +2,7 @@ name: Fly Deploy
 on:
   push:
     branches:
-      - main
+      - release
 jobs:
   deploy:
     name: Deploy app
@@ -19,6 +19,3 @@ jobs:
         if: always()
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        with:
-          nodetail: true
-          title: "Fly Deploy"

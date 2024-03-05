@@ -1,12 +1,44 @@
-import { useAppSelector } from "@/src/redux/hooks/hooks";
+"use client";
+
+import { currentUser } from "@/src/api/auth/auth";
+import { setLoginUser } from "@/src/redux/hooks/auth/user";
+import { useAppDispatch, useAppSelector } from "@/src/redux/hooks/hooks";
 import { RootState } from "@/src/redux/store";
 import { RoutePath } from "@/src/utils/path/path";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 export const Header = () => {
   const state = useAppSelector((state: RootState) => state);
   let user = state?.user;
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (user) return;
+
+    currentUser()
+      ?.then((response) => {
+        if (response && response.status === 200) {
+          const responseData = response.data.data;
+          dispatch(
+            setLoginUser({
+              id: responseData.id,
+              name: responseData.name,
+              uuid: responseData.uuid,
+            })
+          );
+        } else {
+          router.push(RoutePath.Login);
+          return;
+        }
+      })
+      .catch((error) => {
+        console.error("Login check failed:", error);
+        router.push(RoutePath.Login);
+      });
+  }, []);
 
   return (
     <header className="px-4 py-4 bg-white shadow shadow-white">
